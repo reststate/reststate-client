@@ -30,4 +30,21 @@ describe('Resource', () => {
     expect(api.get).toHaveBeenCalledWith('/widgets');
     return expect(result).resolves.toEqual(records);
   });
+
+  it('can find one record', () => {
+    const record = {
+      type: 'widgets',
+      id: '1',
+    };
+    api.get.mockResolvedValue({
+      data: {
+        data: record,
+      },
+    });
+
+    const result = resource.find(1);
+
+    expect(api.get).toHaveBeenCalledWith('/widgets/1');
+    return expect(result).resolves.toEqual(record);
+  });
 });
