@@ -15,4 +15,10 @@ export default class Resource {
       .get(`/${this.name}/${id}`)
       .then(response => response.data.data);
   }
+
+  create(record) {
+    const requestData = { data: record };
+    return this.api
+      .post(`/${this.name}`, requestData);
+  }
 }

@@ -8,6 +8,7 @@ describe('Resource', () => {
   beforeEach(() => {
     api = {
       get: jest.fn(),
+      post: jest.fn(),
     };
     resource = new Resource({ api, name });
   });
@@ -46,5 +47,20 @@ describe('Resource', () => {
 
     expect(api.get).toHaveBeenCalledWith('/widgets/1');
     return expect(result).resolves.toEqual(record);
+  });
+
+  it('can create a record', () => {
+    const record = {
+      type: 'widgets',
+      id: '1',
+    };
+
+    const result = resource.create(record);
+
+    expect(api.post).toHaveBeenCalledWith(
+      '/widgets',
+      { data: record },
+    );
+    return result; // confirm it resolves
   });
 });
