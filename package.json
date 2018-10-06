@@ -1,0 +1,8 @@
+{
+  "name": "jsonapi-client",
+  "version": "0.0.1",
+  "description": "A vanilla JS client for JSON API services",
+  "main": "index.js",
+  "author": "Josh Justice <me@codingitwrong.com>",
+  "license": "Apache-2.0"
+}
