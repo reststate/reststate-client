@@ -21,4 +21,10 @@ export default class Resource {
     return this.api
       .post(`/${this.name}`, requestData);
   }
+
+  update(record) {
+    const requestData = { data: record };
+    return this.api
+      .patch(`/${this.name}/${record.id}`, requestData);
+  }
 }

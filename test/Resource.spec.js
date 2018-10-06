@@ -9,6 +9,7 @@ describe('Resource', () => {
     api = {
       get: jest.fn(),
       post: jest.fn(),
+      patch: jest.fn(),
     };
     resource = new Resource({ api, name });
   });
@@ -59,6 +60,21 @@ describe('Resource', () => {
 
     expect(api.post).toHaveBeenCalledWith(
       '/widgets',
+      { data: record },
+    );
+    return result; // confirm it resolves
+  });
+
+  it('can update a record', () => {
+    const record = {
+      type: 'widgets',
+      id: '1',
+    };
+
+    const result = resource.update(record);
+
+    expect(api.patch).toHaveBeenCalledWith(
+      '/widgets/1',
       { data: record },
     );
     return result; // confirm it resolves
