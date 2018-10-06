@@ -27,4 +27,9 @@ export default class Resource {
     return this.api
       .patch(`/${this.name}/${record.id}`, requestData);
   }
+
+  delete(record) {
+    return this.api
+      .delete(`/${this.name}/${record.id}`);
+  }
 }

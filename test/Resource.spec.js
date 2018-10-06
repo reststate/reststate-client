@@ -10,6 +10,7 @@ describe('Resource', () => {
       get: jest.fn(),
       post: jest.fn(),
       patch: jest.fn(),
+      delete: jest.fn(),
     };
     resource = new Resource({ api, name });
   });
@@ -77,6 +78,18 @@ describe('Resource', () => {
       '/widgets/1',
       { data: record },
     );
+    return result; // confirm it resolves
+  });
+
+  it('can delete a record', () => {
+    const record = {
+      type: 'widgets',
+      id: '1',
+    };
+
+    const result = resource.delete(record);
+
+    expect(api.delete).toHaveBeenCalledWith('/widgets/1');
     return result; // confirm it resolves
   });
 });
