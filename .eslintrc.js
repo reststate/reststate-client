@@ -7,6 +7,7 @@ module.exports = {
     'jest',
   ],
   env: {
+    'es6': true,
     'jest/globals': true,
   },
 };
