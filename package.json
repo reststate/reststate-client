@@ -4,5 +4,15 @@
   "description": "A vanilla JS client for JSON API services",
   "main": "index.js",
   "author": "Josh Justice <me@codingitwrong.com>",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^23.6.0",
+    "jest": "^23.6.0"
+  }
 }
