@@ -47,9 +47,11 @@ class Resource {
   }
 
   update(record) {
+    // http://jsonapi.org/faq/#wheres-put
     const requestData = { data: record };
     return this.api
-      .patch(`${this.name}/${record.id}`, requestData);
+      .patch(`${this.name}/${record.id}`, requestData)
+      .then(response => response.data);
   }
 
   delete(record) {

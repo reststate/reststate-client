@@ -121,6 +121,8 @@ describe('Resource', () => {
       type: 'widgets',
       id: '1',
     };
+    const responseBody = { data: record };
+    api.patch.mockResolvedValue({ data: responseBody });
 
     const result = resource.update(record);
 
@@ -128,7 +130,7 @@ describe('Resource', () => {
       'widgets/1',
       { data: record },
     );
-    return result; // confirm it resolves
+    return expect(result).resolves.toEqual(responseBody);
   });
 
   it('can delete a record', () => {
