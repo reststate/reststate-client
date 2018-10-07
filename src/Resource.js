@@ -1,4 +1,4 @@
-export default class Resource {
+class Resource {
   constructor({ name, api }) {
     this.name = name;
     this.api = api;
@@ -33,3 +33,5 @@ export default class Resource {
       .delete(`/${this.name}/${record.id}`);
   }
 }
+
+module.exports = Resource;
