@@ -103,13 +103,17 @@ describe('Resource', () => {
       },
     };
 
+    const responseBody = { data: record };
+
+    api.post.mockResolvedValue({ data: responseBody });
+
     const result = resource.create(record);
 
     expect(api.post).toHaveBeenCalledWith(
       'widgets',
       expectedRequestBody,
     );
-    return result; // confirm it resolves
+    return expect(result).resolves.toEqual(responseBody);
   });
 
   it('can update a record', () => {
