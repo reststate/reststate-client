@@ -16,22 +16,41 @@ describe('Resource', () => {
   });
 
   it('can retrieve all records', () => {
-    const records = [
-      {
-        type: 'widgets',
-        id: '1',
-      },
-    ];
-    api.get.mockResolvedValue({
-      data: {
-        data: records,
-      },
-    });
+    const expectedResult = {
+      data: [
+        {
+          type: 'widgets',
+          id: '1',
+        },
+      ],
+    };
+    api.get.mockResolvedValue({ data: expectedResult });
 
     const result = resource.all();
 
-    expect(api.get).toHaveBeenCalledWith('/widgets');
-    return expect(result).resolves.toEqual(records);
+    expect(api.get).toHaveBeenCalledWith('/widgets?');
+    return expect(result).resolves.toEqual(expectedResult);
+  });
+
+  it('can retrieve related records', () => {
+    const expectedResult = {
+      data: [
+        {
+          type: 'widgets',
+          id: '1',
+        },
+      ],
+    };
+    api.get.mockResolvedValue({ data: expectedResult });
+
+    const result = resource.all({
+      options: {
+        include: 'comments',
+      },
+    });
+
+    expect(api.get).toHaveBeenCalledWith('/widgets?include=comments');
+    return expect(result).resolves.toEqual(expectedResult);
   });
 
   it('can find one record', () => {

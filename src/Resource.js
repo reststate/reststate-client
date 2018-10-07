@@ -4,16 +4,21 @@ function filterQueryString(obj) {
     .join('&');
 }
 
+const getOptionsQuery = (optionsObject = {}) => (
+  optionsObject.include ? `include=${optionsObject.include}` : ''
+);
+
 class Resource {
   constructor({ name, api }) {
     this.name = name;
     this.api = api;
   }
 
-  all() {
-    return this.api
-      .get(`/${this.name}`)
-      .then(response => response.data.data);
+  all({ options } = {}) {
+    const url = `/${this.name}?${getOptionsQuery(options)}`;
+
+    return this.api.get(url)
+      .then(response => response.data);
   }
 
   find(id) {
