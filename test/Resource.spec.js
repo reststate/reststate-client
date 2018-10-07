@@ -28,7 +28,7 @@ describe('Resource', () => {
 
     const result = resource.all();
 
-    expect(api.get).toHaveBeenCalledWith('/widgets?');
+    expect(api.get).toHaveBeenCalledWith('widgets?');
     return expect(result).resolves.toEqual(expectedResult);
   });
 
@@ -49,7 +49,7 @@ describe('Resource', () => {
       },
     });
 
-    expect(api.get).toHaveBeenCalledWith('/widgets?include=comments');
+    expect(api.get).toHaveBeenCalledWith('widgets?include=comments');
     return expect(result).resolves.toEqual(expectedResult);
   });
 
@@ -64,7 +64,7 @@ describe('Resource', () => {
 
     const result = resource.find(1);
 
-    expect(api.get).toHaveBeenCalledWith('/widgets/1?');
+    expect(api.get).toHaveBeenCalledWith('widgets/1?');
     return expect(result).resolves.toEqual(expectedResponse);
   });
 
@@ -85,7 +85,7 @@ describe('Resource', () => {
 
     const result = resource.where(filter);
 
-    expect(api.get).toHaveBeenCalledWith('/widgets?filter[status]=draft&');
+    expect(api.get).toHaveBeenCalledWith('widgets?filter[status]=draft&');
     return expect(result).resolves.toEqual(expectedResponse);
   });
 
@@ -106,7 +106,7 @@ describe('Resource', () => {
     const result = resource.create(record);
 
     expect(api.post).toHaveBeenCalledWith(
-      '/widgets',
+      'widgets',
       expectedRequestBody,
     );
     return result; // confirm it resolves
@@ -121,7 +121,7 @@ describe('Resource', () => {
     const result = resource.update(record);
 
     expect(api.patch).toHaveBeenCalledWith(
-      '/widgets/1',
+      'widgets/1',
       { data: record },
     );
     return result; // confirm it resolves
@@ -135,7 +135,7 @@ describe('Resource', () => {
 
     const result = resource.delete(record);
 
-    expect(api.delete).toHaveBeenCalledWith('/widgets/1');
+    expect(api.delete).toHaveBeenCalledWith('widgets/1');
     return result; // confirm it resolves
   });
 });

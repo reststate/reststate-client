@@ -15,14 +15,14 @@ class Resource {
   }
 
   all({ options } = {}) {
-    const url = `/${this.name}?${getOptionsQuery(options)}`;
+    const url = `${this.name}?${getOptionsQuery(options)}`;
 
     return this.api.get(url)
       .then(response => response.data);
   }
 
   find(id, { options } = {}) {
-    const url = `/${this.name}/${id}?${getOptionsQuery(options)}`;
+    const url = `${this.name}/${id}?${getOptionsQuery(options)}`;
 
     return this.api.get(url)
       .then(response => response.data);
@@ -31,7 +31,7 @@ class Resource {
   where(criteria, { options } = {}) {
     const queryString = filterQueryString(criteria);
     return this.api
-      .get(`/${this.name}?${queryString}&${getOptionsQuery(options)}`)
+      .get(`${this.name}?${queryString}&${getOptionsQuery(options)}`)
       .then(response => response.data);
   }
 
@@ -42,18 +42,18 @@ class Resource {
     );
     const requestData = { data: record };
     return this.api
-      .post(`/${this.name}`, requestData);
+      .post(`${this.name}`, requestData);
   }
 
   update(record) {
     const requestData = { data: record };
     return this.api
-      .patch(`/${this.name}/${record.id}`, requestData);
+      .patch(`${this.name}/${record.id}`, requestData);
   }
 
   delete(record) {
     return this.api
-      .delete(`/${this.name}/${record.id}`);
+      .delete(`${this.name}/${record.id}`);
   }
 }
 
