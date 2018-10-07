@@ -1,3 +1,9 @@
+function filterQueryString(obj) {
+  return Object.keys(obj)
+    .map(k => `filter[${k}]=${encodeURIComponent(obj[k])}`)
+    .join('&');
+}
+
 class Resource {
   constructor({ name, api }) {
     this.name = name;
@@ -16,7 +22,18 @@ class Resource {
       .then(response => response.data.data);
   }
 
-  create(record) {
+  where(criteria) {
+    const queryString = filterQueryString(criteria);
+    return this.api
+      .get(`/${this.name}?${queryString}`)
+      .then(response => response.data.data);
+  }
+
+  create(partialRecord) {
+    const record = Object.assign({},
+      partialRecord,
+      { type: this.name },
+    );
     const requestData = { data: record };
     return this.api
       .post(`/${this.name}`, requestData);

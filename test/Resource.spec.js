@@ -51,17 +51,48 @@ describe('Resource', () => {
     return expect(result).resolves.toEqual(record);
   });
 
+  it('can find records by criteria', () => {
+    const records = [
+      {
+        type: 'widgets',
+        id: '1',
+      },
+    ];
+    const filter = {
+      status: 'draft',
+    };
+
+    api.get.mockResolvedValue({
+      data: {
+        data: records,
+      },
+    });
+
+    const result = resource.where(filter);
+
+    expect(api.get).toHaveBeenCalledWith('/widgets?filter[status]=draft');
+    return expect(result).resolves.toEqual(records);
+  });
+
   it('can create a record', () => {
     const record = {
-      type: 'widgets',
-      id: '1',
+      attributes: {
+        name: 'Foo',
+      },
+    };
+
+    const expectedRequestBody = {
+      data: {
+        type: 'widgets',
+        ...record,
+      },
     };
 
     const result = resource.create(record);
 
     expect(api.post).toHaveBeenCalledWith(
       '/widgets',
-      { data: record },
+      expectedRequestBody,
     );
     return result; // confirm it resolves
   });
