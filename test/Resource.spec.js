@@ -54,43 +54,39 @@ describe('Resource', () => {
   });
 
   it('can find one record', () => {
-    const record = {
-      type: 'widgets',
-      id: '1',
-    };
-    api.get.mockResolvedValue({
+    const expectedResponse = {
       data: {
-        data: record,
-      },
-    });
-
-    const result = resource.find(1);
-
-    expect(api.get).toHaveBeenCalledWith('/widgets/1');
-    return expect(result).resolves.toEqual(record);
-  });
-
-  it('can find records by criteria', () => {
-    const records = [
-      {
         type: 'widgets',
         id: '1',
       },
-    ];
+    };
+    api.get.mockResolvedValue({ data: expectedResponse });
+
+    const result = resource.find(1);
+
+    expect(api.get).toHaveBeenCalledWith('/widgets/1?');
+    return expect(result).resolves.toEqual(expectedResponse);
+  });
+
+  it('can find records by criteria', () => {
+    const expectedResponse = {
+      data: [
+        {
+          type: 'widgets',
+          id: '1',
+        },
+      ],
+    };
     const filter = {
       status: 'draft',
     };
 
-    api.get.mockResolvedValue({
-      data: {
-        data: records,
-      },
-    });
+    api.get.mockResolvedValue({ data: expectedResponse });
 
     const result = resource.where(filter);
 
-    expect(api.get).toHaveBeenCalledWith('/widgets?filter[status]=draft');
-    return expect(result).resolves.toEqual(records);
+    expect(api.get).toHaveBeenCalledWith('/widgets?filter[status]=draft&');
+    return expect(result).resolves.toEqual(expectedResponse);
   });
 
   it('can create a record', () => {

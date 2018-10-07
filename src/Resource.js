@@ -21,17 +21,18 @@ class Resource {
       .then(response => response.data);
   }
 
-  find(id) {
-    return this.api
-      .get(`/${this.name}/${id}`)
-      .then(response => response.data.data);
+  find(id, { options } = {}) {
+    const url = `/${this.name}/${id}?${getOptionsQuery(options)}`;
+
+    return this.api.get(url)
+      .then(response => response.data);
   }
 
-  where(criteria) {
+  where(criteria, { options } = {}) {
     const queryString = filterQueryString(criteria);
     return this.api
-      .get(`/${this.name}?${queryString}`)
-      .then(response => response.data.data);
+      .get(`/${this.name}?${queryString}&${getOptionsQuery(options)}`)
+      .then(response => response.data);
   }
 
   create(partialRecord) {
