@@ -10,6 +10,9 @@ describe('Resource', () => {
     id: '1',
   };
   const records = [record];
+  const optionsWithInclude = {
+    include: 'comments',
+  };
 
   beforeEach(() => {
     api = {
@@ -21,52 +24,73 @@ describe('Resource', () => {
     resource = new Resource({ httpClient: api, name });
   });
 
-  it('can retrieve all records', () => {
-    const expectedResult = { data: records };
-    api.get.mockResolvedValue({ data: expectedResult });
+  describe('all', () => {
+    it('can retrieve all records', () => {
+      const expectedResult = { data: records };
+      api.get.mockResolvedValue({ data: expectedResult });
 
-    const result = resource.all();
+      const result = resource.all();
 
-    expect(api.get).toHaveBeenCalledWith('widgets?');
-    return expect(result).resolves.toEqual(expectedResult);
-  });
-
-  it('can retrieve related records', () => {
-    const expectedResult = { data: records };
-    api.get.mockResolvedValue({ data: expectedResult });
-
-    const result = resource.all({
-      options: {
-        include: 'comments',
-      },
+      expect(api.get).toHaveBeenCalledWith('widgets?');
+      return expect(result).resolves.toEqual(expectedResult);
     });
 
-    expect(api.get).toHaveBeenCalledWith('widgets?include=comments');
-    return expect(result).resolves.toEqual(expectedResult);
+    it('can request included records', () => {
+      const expectedResult = { data: records };
+      api.get.mockResolvedValue({ data: expectedResult });
+
+      const result = resource.all({ options: optionsWithInclude });
+
+      expect(api.get).toHaveBeenCalledWith('widgets?include=comments');
+    });
   });
 
-  it('can find one record', () => {
-    const expectedResponse = { data: record };
-    api.get.mockResolvedValue({ data: expectedResponse });
+  describe('find', () => {
+    it('can find one record', () => {
+      const expectedResponse = { data: record };
+      api.get.mockResolvedValue({ data: expectedResponse });
 
-    const result = resource.find(1);
+      const result = resource.find(1);
 
-    expect(api.get).toHaveBeenCalledWith('widgets/1?');
-    return expect(result).resolves.toEqual(expectedResponse);
+      expect(api.get).toHaveBeenCalledWith('widgets/1?');
+      return expect(result).resolves.toEqual(expectedResponse);
+    });
+
+    it('can request included records', () => {
+      const expectedResponse = { data: record };
+      api.get.mockResolvedValue({ data: expectedResponse });
+
+      const result = resource.find(1, { options: optionsWithInclude });
+
+      expect(api.get).toHaveBeenCalledWith('widgets/1?include=comments');
+    });
   });
 
-  it('can find records by criteria', () => {
-    const expectedResponse = { data: records };
+  describe('where', () => {
     const filter = {
       status: 'draft',
     };
 
-    api.get.mockResolvedValue({ data: expectedResponse });
+    it('can find records by criteria', () => {
+      const expectedResponse = { data: records };
+      api.get.mockResolvedValue({ data: expectedResponse });
 
-    const result = resource.where(filter);
+      const result = resource.where(filter);
 
-    expect(api.get).toHaveBeenCalledWith('widgets?filter[status]=draft&');
-    return expect(result).resolves.toEqual(expectedResponse);
+      expect(api.get).toHaveBeenCalledWith('widgets?filter[status]=draft&');
+      return expect(result).resolves.toEqual(expectedResponse);
+    });
+
+    it('can request included records', () => {
+      const expectedResponse = { data: records };
+      api.get.mockResolvedValue({ data: expectedResponse });
+
+      const result = resource.where(filter, { options: optionsWithInclude });
+
+      expect(api.get).toHaveBeenCalledWith(
+        'widgets?filter[status]=draft&include=comments',
+      );
+    });
   });
 
   describe('related', () => {
@@ -77,7 +101,6 @@ describe('Resource', () => {
 
     it('can find related records', () => {
       const expectedResponse = { data: records };
-
       api.get.mockResolvedValue({ data: expectedResponse });
 
       const result = resource.related({ parent });
@@ -88,15 +111,22 @@ describe('Resource', () => {
 
     it('can find related records with a different relationship name', () => {
       const expectedResponse = { data: records };
-
       api.get.mockResolvedValue({ data: expectedResponse });
 
       const relationship = 'purchased-widgets';
-
       const result = resource.related({ parent, relationship });
 
       expect(api.get).toHaveBeenCalledWith('users/1/purchased-widgets?');
       return expect(result).resolves.toEqual(expectedResponse);
+    });
+
+    it('can request included records', () => {
+      const expectedResponse = { data: records };
+      api.get.mockResolvedValue({ data: expectedResponse });
+
+      const result = resource.related({ parent, options: optionsWithInclude });
+
+      expect(api.get).toHaveBeenCalledWith('users/1/widgets?include=comments');
     });
   });
 
@@ -109,7 +139,6 @@ describe('Resource', () => {
     };
 
     const responseBody = { data: record };
-
     api.post.mockResolvedValue({ data: responseBody });
 
     const result = resource.create(record);
