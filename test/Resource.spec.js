@@ -69,40 +69,35 @@ describe('Resource', () => {
     return expect(result).resolves.toEqual(expectedResponse);
   });
 
-  it('can find related records', () => {
-    const expectedResponse = { data: records };
-    const filter = { status: 'draft' };
-
-    api.get.mockResolvedValue({ data: expectedResponse });
-
+  describe('related', () => {
     const parent = {
       type: 'users',
       id: '1',
     };
 
-    const result = resource.related({ parent });
+    it('can find related records', () => {
+      const expectedResponse = { data: records };
 
-    expect(api.get).toHaveBeenCalledWith('users/1/widgets?');
-    return expect(result).resolves.toEqual(expectedResponse);
-  });
+      api.get.mockResolvedValue({ data: expectedResponse });
 
-  it('can find related records with a different relationship name', () => {
-    const expectedResponse = { data: records };
-    const filter = { status: 'draft' };
+      const result = resource.related({ parent });
 
-    api.get.mockResolvedValue({ data: expectedResponse });
+      expect(api.get).toHaveBeenCalledWith('users/1/widgets?');
+      return expect(result).resolves.toEqual(expectedResponse);
+    });
 
-    const parent = {
-      type: 'users',
-      id: '1',
-    };
+    it('can find related records with a different relationship name', () => {
+      const expectedResponse = { data: records };
 
-    const relationship = 'purchased-widgets';
+      api.get.mockResolvedValue({ data: expectedResponse });
 
-    const result = resource.related({ parent, relationship });
+      const relationship = 'purchased-widgets';
 
-    expect(api.get).toHaveBeenCalledWith('users/1/purchased-widgets?');
-    return expect(result).resolves.toEqual(expectedResponse);
+      const result = resource.related({ parent, relationship });
+
+      expect(api.get).toHaveBeenCalledWith('users/1/purchased-widgets?');
+      return expect(result).resolves.toEqual(expectedResponse);
+    });
   });
 
   it('can create a record', () => {
