@@ -5,6 +5,12 @@ describe('Resource', () => {
   let api;
   let resource;
 
+  const record = {
+    type: 'widgets',
+    id: '1',
+  };
+  const records = [record];
+
   beforeEach(() => {
     api = {
       get: jest.fn(),
@@ -16,14 +22,7 @@ describe('Resource', () => {
   });
 
   it('can retrieve all records', () => {
-    const expectedResult = {
-      data: [
-        {
-          type: 'widgets',
-          id: '1',
-        },
-      ],
-    };
+    const expectedResult = { data: records };
     api.get.mockResolvedValue({ data: expectedResult });
 
     const result = resource.all();
@@ -33,14 +32,7 @@ describe('Resource', () => {
   });
 
   it('can retrieve related records', () => {
-    const expectedResult = {
-      data: [
-        {
-          type: 'widgets',
-          id: '1',
-        },
-      ],
-    };
+    const expectedResult = { data: records };
     api.get.mockResolvedValue({ data: expectedResult });
 
     const result = resource.all({
@@ -54,12 +46,7 @@ describe('Resource', () => {
   });
 
   it('can find one record', () => {
-    const expectedResponse = {
-      data: {
-        type: 'widgets',
-        id: '1',
-      },
-    };
+    const expectedResponse = { data: record };
     api.get.mockResolvedValue({ data: expectedResponse });
 
     const result = resource.find(1);
@@ -69,14 +56,7 @@ describe('Resource', () => {
   });
 
   it('can find records by criteria', () => {
-    const expectedResponse = {
-      data: [
-        {
-          type: 'widgets',
-          id: '1',
-        },
-      ],
-    };
+    const expectedResponse = { data: records };
     const filter = {
       status: 'draft',
     };
@@ -90,17 +70,8 @@ describe('Resource', () => {
   });
 
   it('can find related records', () => {
-    const expectedResponse = {
-      data: [
-        {
-          type: 'widgets',
-          id: '1',
-        },
-      ],
-    };
-    const filter = {
-      status: 'draft',
-    };
+    const expectedResponse = { data: records };
+    const filter = { status: 'draft' };
 
     api.get.mockResolvedValue({ data: expectedResponse });
 
@@ -116,17 +87,8 @@ describe('Resource', () => {
   });
 
   it('can find related records with a different relationship name', () => {
-    const expectedResponse = {
-      data: [
-        {
-          type: 'widgets',
-          id: '1',
-        },
-      ],
-    };
-    const filter = {
-      status: 'draft',
-    };
+    const expectedResponse = { data: records };
+    const filter = { status: 'draft' };
 
     api.get.mockResolvedValue({ data: expectedResponse });
 
@@ -144,12 +106,6 @@ describe('Resource', () => {
   });
 
   it('can create a record', () => {
-    const record = {
-      attributes: {
-        name: 'Foo',
-      },
-    };
-
     const expectedRequestBody = {
       data: {
         type: 'widgets',
@@ -171,10 +127,6 @@ describe('Resource', () => {
   });
 
   it('can update a record', () => {
-    const record = {
-      type: 'widgets',
-      id: '1',
-    };
     const responseBody = { data: record };
     api.patch.mockResolvedValue({ data: responseBody });
 
@@ -188,11 +140,6 @@ describe('Resource', () => {
   });
 
   it('can delete a record', () => {
-    const record = {
-      type: 'widgets',
-      id: '1',
-    };
-
     const result = resource.delete(record);
 
     expect(api.delete).toHaveBeenCalledWith('widgets/1');
