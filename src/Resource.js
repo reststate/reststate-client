@@ -8,6 +8,10 @@ const getOptionsQuery = (optionsObject = {}) => (
   optionsObject.include ? `include=${optionsObject.include}` : ''
 );
 
+const relatedResourceUrl = ({ parent, relationship }) => (
+  `${parent.type}/${parent.id}/${relationship}`
+);
+
 class Resource {
   constructor({ name, api }) {
     this.name = name;
@@ -32,6 +36,13 @@ class Resource {
     const queryString = filterQueryString(criteria);
     return this.api
       .get(`${this.name}?${queryString}&${getOptionsQuery(options)}`)
+      .then(response => response.data);
+  }
+
+  related({ parent, relationship = this.name, options }) {
+    const baseUrl = relatedResourceUrl({ parent, relationship });
+    const url = `${baseUrl}?${getOptionsQuery(options)}`;
+    return this.api.get(url)
       .then(response => response.data);
   }
 

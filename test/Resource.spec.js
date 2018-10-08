@@ -89,6 +89,60 @@ describe('Resource', () => {
     return expect(result).resolves.toEqual(expectedResponse);
   });
 
+  it('can find related records', () => {
+    const expectedResponse = {
+      data: [
+        {
+          type: 'widgets',
+          id: '1',
+        },
+      ],
+    };
+    const filter = {
+      status: 'draft',
+    };
+
+    api.get.mockResolvedValue({ data: expectedResponse });
+
+    const parent = {
+      type: 'users',
+      id: '1',
+    };
+
+    const result = resource.related({ parent });
+
+    expect(api.get).toHaveBeenCalledWith('users/1/widgets?');
+    return expect(result).resolves.toEqual(expectedResponse);
+  });
+
+  it('can find related records with a different relationship name', () => {
+    const expectedResponse = {
+      data: [
+        {
+          type: 'widgets',
+          id: '1',
+        },
+      ],
+    };
+    const filter = {
+      status: 'draft',
+    };
+
+    api.get.mockResolvedValue({ data: expectedResponse });
+
+    const parent = {
+      type: 'users',
+      id: '1',
+    };
+
+    const relationship = 'purchased-widgets';
+
+    const result = resource.related({ parent, relationship });
+
+    expect(api.get).toHaveBeenCalledWith('users/1/purchased-widgets?');
+    return expect(result).resolves.toEqual(expectedResponse);
+  });
+
   it('can create a record', () => {
     const record = {
       attributes: {
