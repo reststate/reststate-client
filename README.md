@@ -5,7 +5,7 @@ A lightweight client for making requests to a JSON API service.
 - It doesn't attempt to provide a way to utilize every possible feature of JSON API; instead, it offers a core set of functionality sufficient for most apps.
 - It doesn't attempt to abstract away the JSON API object format; instead, it returns JSON API data as-is.
 
-`jsonapi-client` provides a simple Promise-based API suitable for just about any JavaScript application. Framework-specific wrappers are also available to handle state storage in a variety of popular state stores:
+`jsonapi-client` provides a simple Promise-based API suitable for just about any JavaScript application. It doesn't handle persistence, though; for that, wrappers are available for a variety of popular state stores:
 
 - Vuex
 - Coming soon: MobX
@@ -102,6 +102,8 @@ widgetResource.create({
 });
 ```
 
+This isn't just limited to `attributes`; `relationships` can be passed in too.
+
 `update()`
 
 Updates a record. The record with updated data can be passed in; the URL the request is made to comes from the ID of that record. The `type` argument is ignored, so it can be omitted if you're constructing the argument object by hand:
@@ -114,6 +116,8 @@ widgetResource.update({
   },
 });
 ```
+
+This isn't just limited to `attributes`; `relationships` can be passed in too.
 
 `delete({ id })`
 
