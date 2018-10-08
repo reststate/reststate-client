@@ -12,6 +12,8 @@ const relatedResourceUrl = ({ parent, relationship }) => (
   `${parent.type}/${parent.id}/${relationship}`
 );
 
+const extractData = response => response.data;
+
 class Resource {
   constructor({ name, httpClient }) {
     this.name = name;
@@ -22,28 +24,28 @@ class Resource {
     const url = `${this.name}?${getOptionsQuery(options)}`;
 
     return this.api.get(url)
-      .then(response => response.data);
+      .then(extractData);
   }
 
   find(id, { options } = {}) {
     const url = `${this.name}/${id}?${getOptionsQuery(options)}`;
 
     return this.api.get(url)
-      .then(response => response.data);
+      .then(extractData);
   }
 
   where(criteria, { options } = {}) {
     const queryString = filterQueryString(criteria);
     return this.api
       .get(`${this.name}?${queryString}&${getOptionsQuery(options)}`)
-      .then(response => response.data);
+      .then(extractData);
   }
 
   related({ parent, relationship = this.name, options }) {
     const baseUrl = relatedResourceUrl({ parent, relationship });
     const url = `${baseUrl}?${getOptionsQuery(options)}`;
     return this.api.get(url)
-      .then(response => response.data);
+      .then(extractData);
   }
 
   create(partialRecord) {
@@ -54,7 +56,7 @@ class Resource {
     const requestData = { data: record };
     return this.api
       .post(`${this.name}`, requestData)
-      .then(response => response.data);
+      .then(extractData);
   }
 
   update(record) {
@@ -62,7 +64,7 @@ class Resource {
     const requestData = { data: record };
     return this.api
       .patch(`${this.name}/${record.id}`, requestData)
-      .then(response => response.data);
+      .then(extractData);
   }
 
   delete(record) {
