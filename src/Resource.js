@@ -67,9 +67,9 @@ class Resource {
       .then(extractData);
   }
 
-  delete(record) {
+  delete({ id }) {
     return this.api
-      .delete(`${this.name}/${record.id}`);
+      .delete(`${this.name}/${id}`);
   }
 }
 
