@@ -12,7 +12,7 @@ describe('Resource', () => {
       patch: jest.fn(),
       delete: jest.fn(),
     };
-    resource = new Resource({ api, name });
+    resource = new Resource({ httpClient: api, name });
   });
 
   it('can retrieve all records', () => {

@@ -13,9 +13,9 @@ const relatedResourceUrl = ({ parent, relationship }) => (
 );
 
 class Resource {
-  constructor({ name, api }) {
+  constructor({ name, httpClient }) {
     this.name = name;
-    this.api = api;
+    this.api = httpClient;
   }
 
   all({ options } = {}) {
