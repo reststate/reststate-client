@@ -1,3 +1,3 @@
-const Resource = require('./src/Resource');
+const ResourceClient = require('./src/Resource');
 
-module.exports = { Resource };
+module.exports = { ResourceClient };
