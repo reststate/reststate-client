@@ -7,8 +7,8 @@ A lightweight client for making requests to a JSON API service.
 
 `jsonapi-client` provides a simple Promise-based API suitable for just about any JavaScript application. It doesn't handle persistence, though; for that, wrappers are available for a variety of popular state stores:
 
-- Vuex
-- Coming soon: MobX
+- [Vuex](https://github.com/CodingItWrong/vuex-jsonapi)
+- [MobX](https://github.com/CodingItWrong/mobx-jsonapi)
 - Coming soon: Redux
 
 ## Installation
