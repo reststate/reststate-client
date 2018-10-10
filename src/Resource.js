@@ -27,15 +27,15 @@ class Resource {
       .then(extractData);
   }
 
-  find(id, { options } = {}) {
+  find({ id, options } = {}) {
     const url = `${this.name}/${id}?${getOptionsQuery(options)}`;
 
     return this.api.get(url)
       .then(extractData);
   }
 
-  where(criteria, { options } = {}) {
-    const queryString = filterQueryString(criteria);
+  where({ filter, options } = {}) {
+    const queryString = filterQueryString(filter);
     return this.api
       .get(`${this.name}?${queryString}&${getOptionsQuery(options)}`)
       .then(extractData);

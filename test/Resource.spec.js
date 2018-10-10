@@ -50,7 +50,7 @@ describe('Resource', () => {
       const expectedResponse = { data: record };
       api.get.mockResolvedValue({ data: expectedResponse });
 
-      const result = resource.find(1);
+      const result = resource.find({ id: 1 });
 
       expect(api.get).toHaveBeenCalledWith('widgets/1?');
       return expect(result).resolves.toEqual(expectedResponse);
@@ -60,7 +60,7 @@ describe('Resource', () => {
       const expectedResponse = { data: record };
       api.get.mockResolvedValue({ data: expectedResponse });
 
-      const result = resource.find(1, { options: optionsWithInclude });
+      const result = resource.find({ id: 1, options: optionsWithInclude });
 
       expect(api.get).toHaveBeenCalledWith('widgets/1?include=comments');
     });
@@ -75,7 +75,7 @@ describe('Resource', () => {
       const expectedResponse = { data: records };
       api.get.mockResolvedValue({ data: expectedResponse });
 
-      const result = resource.where(filter);
+      const result = resource.where({ filter });
 
       expect(api.get).toHaveBeenCalledWith('widgets?filter[status]=draft&');
       return expect(result).resolves.toEqual(expectedResponse);
@@ -85,7 +85,7 @@ describe('Resource', () => {
       const expectedResponse = { data: records };
       api.get.mockResolvedValue({ data: expectedResponse });
 
-      const result = resource.where(filter, { options: optionsWithInclude });
+      const result = resource.where({ filter, options: optionsWithInclude });
 
       expect(api.get).toHaveBeenCalledWith(
         'widgets?filter[status]=draft&include=comments',
