@@ -8,7 +8,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "test": "jest",
-    "lint": "eslint src/**/*.js test/**/*.js"
+    "lint": "eslint src test"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
