@@ -1,5 +1,5 @@
 {
-  "name": "jsonapi-client",
+  "name": "@reststate/client",
   "version": "0.0.1",
   "description": "A vanilla JS client for JSON API services",
   "main": "index.js",

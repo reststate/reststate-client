@@ -1,11 +1,11 @@
-# jsonapi-client
+# @reststate/client
 
 A lightweight client for making requests to a JSON API service.
 
 - It doesn't attempt to provide a way to utilize every possible feature of JSON API; instead, it offers a core set of functionality sufficient for most apps.
 - It doesn't attempt to abstract away the JSON API object format; instead, it returns JSON API data as-is.
 
-`jsonapi-client` provides a simple Promise-based API suitable for just about any JavaScript application. It doesn't handle persistence, though; for that, wrappers are available for a variety of popular state stores:
+`@reststate/client` provides a simple Promise-based API suitable for just about any JavaScript application. It doesn't handle persistence, though; for that, wrappers are available for a variety of popular state stores:
 
 - [Vuex](https://github.com/CodingItWrong/vuex-jsonapi)
 - [MobX](https://github.com/CodingItWrong/mobx-jsonapi)
@@ -14,16 +14,16 @@ A lightweight client for making requests to a JSON API service.
 ## Installation
 
 ```sh
-$ npm install --save jsonapi-client
+$ npm install --save @reststate/client
 ```
 
 ## Usage
 
-`jsonapi-client` needs to be configured with an `httpClient` object that handles the requests and responses. The easiest way to do this is to provide an `axios` instance configured with your server's base URL, the standard JSON API content type, and optionally any authentication info your server requires.
+`@reststate/client` needs to be configured with an `httpClient` object that handles the requests and responses. The easiest way to do this is to provide an `axios` instance configured with your server's base URL, the standard JSON API content type, and optionally any authentication info your server requires.
 
 ```js
 import axios from 'axios';
-import { Resource } from 'jsonapi-client';
+import { Resource } from '@reststate/client';
 
 const token = ...;
 
