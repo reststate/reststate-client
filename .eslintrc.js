@@ -1,7 +1,5 @@
 module.exports = {
-  extends: [
-    'codingitwrong',
-  ],
+  extends: ['codingitwrong'],
   parser: 'babel-eslint',
   plugins: [
     'jest',
