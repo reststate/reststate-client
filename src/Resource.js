@@ -56,7 +56,10 @@ class Resource {
     const requestData = { data: record };
     return this.api
       .post(`${this.name}`, requestData)
-      .then(extractData);
+      .then(extractData)
+      .catch(response => {
+        throw response.data;
+      });
   }
 
   update(record) {

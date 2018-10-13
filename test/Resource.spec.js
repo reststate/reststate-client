@@ -130,24 +130,47 @@ describe('Resource', () => {
     });
   });
 
-  it('can create a record', () => {
-    const expectedRequestBody = {
-      data: {
-        type: 'widgets',
-        ...record,
-      },
-    };
+  describe('create', () => {
+    it('can create a record', () => {
+      const expectedRequestBody = {
+        data: {
+          type: 'widgets',
+          ...record,
+        },
+      };
 
-    const responseBody = { data: record };
-    api.post.mockResolvedValue({ data: responseBody });
+      const responseBody = { data: record };
+      api.post.mockResolvedValue({ data: responseBody });
 
-    const result = resource.create(record);
+      const result = resource.create(record);
 
-    expect(api.post).toHaveBeenCalledWith(
-      'widgets',
-      expectedRequestBody,
-    );
-    return expect(result).resolves.toEqual(responseBody);
+      expect(api.post).toHaveBeenCalledWith(
+        'widgets',
+        expectedRequestBody,
+      );
+      return expect(result).resolves.toEqual(responseBody);
+    });
+
+    it('rejects with creation errors', () => {
+      const responseBody = {
+        errors: [
+          {
+            title: "can't be blank",
+            detail: "title - can't be blank",
+            code: '100',
+            source: {
+              pointer: '/data/attributes/title',
+            },
+            status: '422',
+          },
+        ],
+      };
+      api.post.mockRejectedValue({ data: responseBody });
+
+      const result = resource.create(record);
+
+      return expect(result).rejects.toEqual(responseBody);
+    });
   });
 
   it('can update a record', () => {
