@@ -173,17 +173,40 @@ describe('Resource', () => {
     });
   });
 
-  it('can update a record', () => {
-    const responseBody = { data: record };
-    api.patch.mockResolvedValue({ data: responseBody });
+  describe('update', () => {
+    it('can update a record', () => {
+      const responseBody = { data: record };
+      api.patch.mockResolvedValue({ data: responseBody });
 
-    const result = resource.update(record);
+      const result = resource.update(record);
 
-    expect(api.patch).toHaveBeenCalledWith(
-      'widgets/1',
-      { data: record },
-    );
-    return expect(result).resolves.toEqual(responseBody);
+      expect(api.patch).toHaveBeenCalledWith(
+        'widgets/1',
+        { data: record },
+      );
+      return expect(result).resolves.toEqual(responseBody);
+    });
+
+    it('rejects with update errors', () => {
+      const responseBody = {
+        errors: [
+          {
+            title: "can't be blank",
+            detail: "title - can't be blank",
+            code: '100',
+            source: {
+              pointer: '/data/attributes/title',
+            },
+            status: '422',
+          },
+        ],
+      };
+      api.patch.mockRejectedValue({ data: responseBody });
+
+      const result = resource.update(record);
+
+      return expect(result).rejects.toEqual(responseBody);
+    });
   });
 
   it('can delete a record', () => {

@@ -67,7 +67,10 @@ class Resource {
     const requestData = { data: record };
     return this.api
       .patch(`${this.name}/${record.id}`, requestData)
-      .then(extractData);
+      .then(extractData)
+      .catch(response => {
+        throw response.data;
+      });
   }
 
   delete({ id }) {
