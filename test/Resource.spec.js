@@ -43,6 +43,15 @@ describe('Resource', () => {
 
       expect(api.get).toHaveBeenCalledWith('widgets?include=comments');
     });
+
+    it('rejects upon error', () => {
+      const error = { dummy: 'data' };
+      api.get.mockRejectedValue(error);
+
+      const result = resource.all();
+
+      expect(result).rejects.toEqual(error);
+    });
   });
 
   describe('find', () => {
@@ -63,6 +72,15 @@ describe('Resource', () => {
       const result = resource.find({ id: 1, options: optionsWithInclude });
 
       expect(api.get).toHaveBeenCalledWith('widgets/1?include=comments');
+    });
+
+    it('rejects upon error', () => {
+      const error = { dummy: 'data' };
+      api.get.mockRejectedValue(error);
+
+      const result = resource.find({ id: 1 });
+
+      expect(result).rejects.toEqual(error);
     });
   });
 
@@ -90,6 +108,15 @@ describe('Resource', () => {
       expect(api.get).toHaveBeenCalledWith(
         'widgets?filter[status]=draft&include=comments',
       );
+    });
+
+    it('rejects upon error', () => {
+      const error = { dummy: 'data' };
+      api.get.mockRejectedValue(error);
+
+      const result = resource.where({ filter });
+
+      expect(result).rejects.toEqual(error);
     });
   });
 
@@ -128,6 +155,15 @@ describe('Resource', () => {
 
       expect(api.get).toHaveBeenCalledWith('users/1/widgets?include=comments');
     });
+
+    it('rejects upon error', () => {
+      const error = { dummy: 'data' };
+      api.get.mockRejectedValue(error);
+
+      const result = resource.related({ parent });
+
+      expect(result).rejects.toEqual(error);
+    });
   });
 
   describe('create', () => {
@@ -151,25 +187,13 @@ describe('Resource', () => {
       return expect(result).resolves.toEqual(responseBody);
     });
 
-    it('rejects with creation errors', () => {
-      const responseBody = {
-        errors: [
-          {
-            title: "can't be blank",
-            detail: "title - can't be blank",
-            code: '100',
-            source: {
-              pointer: '/data/attributes/title',
-            },
-            status: '422',
-          },
-        ],
-      };
-      api.post.mockRejectedValue({ data: responseBody });
+    it('rejects upon error', () => {
+      const error = { dummy: 'data' };
+      api.post.mockRejectedValue(error);
 
       const result = resource.create(record);
 
-      return expect(result).rejects.toEqual(responseBody);
+      return expect(result).rejects.toEqual(error);
     });
   });
 
@@ -187,32 +211,31 @@ describe('Resource', () => {
       return expect(result).resolves.toEqual(responseBody);
     });
 
-    it('rejects with update errors', () => {
-      const responseBody = {
-        errors: [
-          {
-            title: "can't be blank",
-            detail: "title - can't be blank",
-            code: '100',
-            source: {
-              pointer: '/data/attributes/title',
-            },
-            status: '422',
-          },
-        ],
-      };
-      api.patch.mockRejectedValue({ data: responseBody });
+    it('rejects upon error', () => {
+      const error = { dummy: 'data' };
+      api.patch.mockRejectedValue(error);
 
       const result = resource.update(record);
 
-      return expect(result).rejects.toEqual(responseBody);
+      return expect(result).rejects.toEqual(error);
     });
   });
 
-  it('can delete a record', () => {
-    const result = resource.delete(record);
+  describe('delete', () => {
+    it('can delete a record', () => {
+      const result = resource.delete(record);
 
-    expect(api.delete).toHaveBeenCalledWith('widgets/1');
-    return result; // confirm it resolves
+      expect(api.delete).toHaveBeenCalledWith('widgets/1');
+      return result; // confirm it resolves
+    });
+
+    it('rejects upon error', () => {
+      const error = { dummy: 'data' };
+      api.delete.mockRejectedValue(error);
+
+      const result = resource.delete(record);
+
+      return expect(result).rejects.toEqual(error);
+    });
   });
 });
