@@ -5,7 +5,9 @@ function filterQueryString(obj) {
 }
 
 const getOptionsQuery = (optionsObject = {}) => (
-  optionsObject.include ? `include=${optionsObject.include}` : ''
+  Object.keys(optionsObject)
+    .map(k => `${k}=${encodeURIComponent(optionsObject[k])}`)
+    .join('&')
 );
 
 const relatedResourceUrl = ({ parent, relationship }) => (
