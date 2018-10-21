@@ -13,6 +13,24 @@ A lightweight client for making requests to a JSON API service.
 - [MobX](https://github.com/CodingItWrong/mobx-jsonapi)
 - Coming soon: Redux
 
+## Synopsis
+
+```javascript
+const resource = new Resource({
+  name: 'widgets',
+  httpClient: axios.create(...),
+});
+
+resource.loadAll()
+  .then(widgets => widgets);
+
+resource.create({
+  attributes: {
+    title: 'My Widget',
+  },
+});
+```
+
 ## Installation
 
 ```sh
