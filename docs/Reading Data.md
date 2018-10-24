@@ -60,9 +60,7 @@ resource.loadRelated({ parent, relationship })
 
 ## Options
 
-All read methods take an optional `options` property, consisting of an object of additional options to pass.
-
-Currently the only option supported is `include`. This specifies which relationships to include in the returned values:
+All read methods take an optional `options` property, consisting of an object of additional options to pass. Each key/value pair in the object is translated into a query string parameter key/value pair:
 
 ```js
 resource.all({
@@ -73,5 +71,3 @@ resource.all({
 
 // requests to widgets?include=comments
 ```
-
-Future support for sort and pagination options is planned.
