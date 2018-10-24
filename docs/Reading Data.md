@@ -1,29 +1,61 @@
 # Reading Data
 
-`all({ options? }?)`
+## loadAll
 
-`find(id, { options? }?)`
+To retrieve all of the records for a resource, call the `loadAll()` method. The method returns a promise that will resolve to the records:
 
-`where(criteria, { options? }?)`
-
-`related({ parent, relationship?, options? })`
-
-Loads data of *this* resource type, related to the `parent`. For example, if you want to find a user's widgets:
-
-```js
-const parent = { type: 'users', id: 1 };
-const widgetResource = new Resource({ name = 'widgets', ... });
-
-widgetResource.related({ parent }); // Requests to users/1/widgets
+```javascript
+resource.loadAll()
+  .then(widgets => console.log(widgets));
 ```
 
-The relationship name by default is the name of this resource. To override this, pass a `relationship` property:
+## loadById
 
-```js
-const parent = { type: 'users', id: 1 };
+To retrieve a single record by ID, call the `loadById()` method:
 
-widgetResource.related({ parent, relationship: 'purchased-widgets' });
-// Requests to users/1/purchased-widgets
+```javascript
+resource.loadById({ id: 42 })
+  .then(widget => console.log(widget));
+```
+
+## loadWhere
+
+To filter/query for records based on certain criteria, use the `loadWhere` method, passing it an object of filter keys and values to send to the server:
+
+```javascript
+const filter = {
+  category: 'whizbang',
+};
+resource.loadWhere({ filter })
+  .then(widgets => console.log(widgets));
+```
+
+## loadRelated
+
+Finally, to load records related via JSON API relationships, use the `loadRelated` method. A nested resource URL is constructed like `categories/27/widgets`. (In the future we will look into using HATEOAS to let the server tell us the relationship URL).
+
+```javascript
+const parent = {
+  type: 'category',
+  id: 27,
+};
+
+resource.loadRelated({ parent })
+  .then(widgets => console.log(widgets));
+```
+
+By default, the name of the relationship on `parent` is assumed to be the same as the name of the other model: in this case, `widgets`. In cases where the names are not the same, you can explicitly pass the relationship name:
+
+```javascript
+const parent = {
+  type: 'categories',
+  id: 27,
+};
+
+const relationship = 'purchased-widgets';
+
+resource.loadRelated({ parent, relationship })
+  .then(widgets => console.log(widgets));
 ```
 
 ## Options
@@ -33,7 +65,7 @@ All read methods take an optional `options` property, consisting of an object of
 Currently the only option supported is `include`. This specifies which relationships to include in the returned values:
 
 ```js
-widgetResource.all({
+resource.all({
   options: {
     include: 'comments',
   },
