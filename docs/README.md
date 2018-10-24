@@ -1,7 +1,5 @@
 # @reststate/client
 
-[![CircleCI](https://circleci.com/gh/reststate/reststate-client.svg?style=svg)](https://circleci.com/gh/reststate/reststate-client)
-
 A lightweight client for making requests to a JSON API service.
 
 - It doesn't attempt to provide a way to utilize every possible feature of JSON API; instead, it offers a core set of functionality sufficient for most apps.
