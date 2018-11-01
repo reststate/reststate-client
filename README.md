@@ -2,10 +2,10 @@
 
 [![CircleCI](https://circleci.com/gh/reststate/reststate-client.svg?style=svg)](https://circleci.com/gh/reststate/reststate-client)
 
-A lightweight client for making requests to a JSON API service.
+A lightweight client for making requests to a JSON:API service.
 
-- It doesn't attempt to provide a way to utilize every possible feature of JSON API; instead, it offers a core set of functionality sufficient for most apps.
-- It doesn't attempt to abstract away the JSON API object format; instead, it returns JSON API data as-is.
+- It doesn't attempt to provide a way to utilize every possible feature of JSON:API; instead, it offers a core set of functionality sufficient for most apps.
+- It doesn't attempt to abstract away the JSON:API object format; instead, it returns JSON:API data as-is.
 
 `@reststate/client` provides a simple Promise-based API suitable for just about any JavaScript application. It doesn't handle persistence, though; for that, wrappers are available for a variety of popular state stores:
 
@@ -39,7 +39,7 @@ $ npm install --save @reststate/client
 
 ## Usage
 
-`@reststate/client` needs to be configured with an `httpClient` object that handles the requests and responses. The easiest way to do this is to provide an `axios` instance configured with your server's base URL, the standard JSON API content type, and optionally any authentication info your server requires.
+`@reststate/client` needs to be configured with an `httpClient` object that handles the requests and responses. The easiest way to do this is to provide an `axios` instance configured with your server's base URL, the standard JSON:API content type, and optionally any authentication info your server requires.
 
 ```js
 import axios from 'axios';
@@ -111,7 +111,7 @@ Future support for sort and pagination options is planned.
 
 `create()`
 
-Creates a new record. The object passed in should follow the JSON API object format, but the `type` can be omitted:
+Creates a new record. The object passed in should follow the JSON:API object format, but the `type` can be omitted:
 
 ```js
 widgetResource.create({

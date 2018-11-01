@@ -32,7 +32,7 @@ resource.loadWhere({ filter })
 
 ## loadRelated
 
-Finally, to load records related via JSON API relationships, use the `loadRelated` method. A nested resource URL is constructed like `categories/27/widgets`. (In the future we will look into using HATEOAS to let the server tell us the relationship URL).
+Finally, to load records related via JSON:API relationships, use the `loadRelated` method. A nested resource URL is constructed like `categories/27/widgets`. (In the future we will look into using HATEOAS to let the server tell us the relationship URL).
 
 ```javascript
 const parent = {

@@ -2,7 +2,7 @@
 
 ## `create()`
 
-Creates a new record. The object passed in should follow the JSON API object format, but the `type` can be omitted:
+Creates a new record. The object passed in should follow the JSON:API object format, but the `type` can be omitted:
 
 ```js
 widgetResource.create({
