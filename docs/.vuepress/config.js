@@ -10,9 +10,9 @@ module.exports = {
     ],
     sidebar: [
       '/',
-      'Installation',
-      'Reading Data',
-      'Writing Data',
+      'installation',
+      'reading-data',
+      'writing-data',
     ],
     displayAllHeaders: true,
   },
