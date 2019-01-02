@@ -4,15 +4,13 @@ function filterQueryString(obj) {
     .join('&');
 }
 
-const getOptionsQuery = (optionsObject = {}) => (
+const getOptionsQuery = (optionsObject = {}) =>
   Object.keys(optionsObject)
     .map(k => `${k}=${encodeURIComponent(optionsObject[k])}`)
-    .join('&')
-);
+    .join('&');
 
-const relatedResourceUrl = ({ parent, relationship }) => (
-  `${parent.type}/${parent.id}/${relationship}`
-);
+const relatedResourceUrl = ({ parent, relationship }) =>
+  `${parent.type}/${parent.id}/${relationship}`;
 
 const extractData = response => response.data;
 
@@ -25,15 +23,13 @@ class Resource {
   all({ options } = {}) {
     const url = `${this.name}?${getOptionsQuery(options)}`;
 
-    return this.api.get(url)
-      .then(extractData);
+    return this.api.get(url).then(extractData);
   }
 
   find({ id, options } = {}) {
     const url = `${this.name}/${id}?${getOptionsQuery(options)}`;
 
-    return this.api.get(url)
-      .then(extractData);
+    return this.api.get(url).then(extractData);
   }
 
   where({ filter, options } = {}) {
@@ -46,19 +42,13 @@ class Resource {
   related({ parent, relationship = this.name, options }) {
     const baseUrl = relatedResourceUrl({ parent, relationship });
     const url = `${baseUrl}?${getOptionsQuery(options)}`;
-    return this.api.get(url)
-      .then(extractData);
+    return this.api.get(url).then(extractData);
   }
 
   create(partialRecord) {
-    const record = Object.assign({},
-      partialRecord,
-      { type: this.name },
-    );
+    const record = Object.assign({}, partialRecord, { type: this.name });
     const requestData = { data: record };
-    return this.api
-      .post(`${this.name}`, requestData)
-      .then(extractData);
+    return this.api.post(`${this.name}`, requestData).then(extractData);
   }
 
   update(record) {
@@ -70,8 +60,7 @@ class Resource {
   }
 
   delete({ id }) {
-    return this.api
-      .delete(`${this.name}/${id}`);
+    return this.api.delete(`${this.name}/${id}`);
   }
 }
 
