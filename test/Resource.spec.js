@@ -180,10 +180,7 @@ describe('Resource', () => {
 
       const result = resource.create(record);
 
-      expect(api.post).toHaveBeenCalledWith(
-        'widgets',
-        expectedRequestBody,
-      );
+      expect(api.post).toHaveBeenCalledWith('widgets', expectedRequestBody);
       return expect(result).resolves.toEqual(responseBody);
     });
 
@@ -204,10 +201,7 @@ describe('Resource', () => {
 
       const result = resource.update(record);
 
-      expect(api.patch).toHaveBeenCalledWith(
-        'widgets/1',
-        { data: record },
-      );
+      expect(api.patch).toHaveBeenCalledWith('widgets/1', { data: record });
       return expect(result).resolves.toEqual(responseBody);
     });
 
