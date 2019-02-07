@@ -44,6 +44,16 @@ describe('Resource', () => {
       expect(api.get).toHaveBeenCalledWith('widgets?include=comments');
     });
 
+    it('can request an arbitrary url', () => {
+      const url = 'https://arbitrary.example.com/endpoint?key=value';
+      const expectedResult = { data: records };
+      api.get.mockResolvedValue({ data: expectedResult });
+
+      const result = resource.all({ options: { url } });
+
+      expect(api.get).toHaveBeenCalledWith(url);
+    });
+
     it('rejects upon error', () => {
       const error = { dummy: 'data' };
       api.get.mockRejectedValue(error);

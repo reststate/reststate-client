@@ -20,8 +20,14 @@ class Resource {
     this.api = httpClient;
   }
 
-  all({ options } = {}) {
-    const url = `${this.name}?${getOptionsQuery(options)}`;
+  all({ options = {} } = {}) {
+    let url;
+
+    if (options.url) {
+      ({ url } = options);
+    } else {
+      url = `${this.name}?${getOptionsQuery(options)}`;
+    }
 
     return this.api.get(url).then(extractData);
   }
