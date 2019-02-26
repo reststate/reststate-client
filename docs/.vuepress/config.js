@@ -4,16 +4,12 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '@reststate/client', link: '/' },
+      { text: 'github', link: 'https://github.com/reststate/reststate-client' },
       { text: '/vuex', link: 'https://vuex.reststate.org' },
       { text: '/mobx', link: 'https://mobx.reststate.org' },
       { text: 'home', link: 'https://reststate.org' },
     ],
-    sidebar: [
-      '/',
-      'installation',
-      'reading-data',
-      'writing-data',
-    ],
+    sidebar: ['/', 'installation', 'reading-data', 'writing-data'],
     displayAllHeaders: true,
   },
 };
