@@ -54,7 +54,7 @@ describe('Resource', () => {
       expect(api.get).toHaveBeenCalledWith(url);
     });
 
-    it('rejects with the response upon error', () => {
+    it('rejects with the response upon server error', () => {
       const errorResponse = { dummy: 'data' };
       api.get.mockRejectedValue({ response: errorResponse });
 
@@ -62,6 +62,17 @@ describe('Resource', () => {
 
       return result.catch(error => {
         expect(error).toEqual(errorResponse);
+      });
+    });
+
+    it('rejects with the bare error upon another kind of error error', () => {
+      const error = new Error('foo');
+      api.get.mockRejectedValue(error);
+
+      const result = resource.all();
+
+      return result.catch(e => {
+        expect(e).toEqual(error);
       });
     });
   });

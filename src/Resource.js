@@ -15,7 +15,11 @@ const relatedResourceUrl = ({ parent, relationship }) =>
 const extractData = response => response.data;
 
 const extractErrorResponse = error => {
-  throw error.response;
+  if (error && error.response) {
+    throw error.response;
+  } else {
+    throw error;
+  }
 };
 
 class Resource {
