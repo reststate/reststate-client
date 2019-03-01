@@ -54,13 +54,26 @@ describe('Resource', () => {
       expect(api.get).toHaveBeenCalledWith(url);
     });
 
-    it('rejects upon error', () => {
-      const error = { dummy: 'data' };
+    it('rejects with the response upon server error', () => {
+      const errorResponse = { dummy: 'data' };
+      api.get.mockRejectedValue({ response: errorResponse });
+
+      const result = resource.all();
+
+      return result.catch(error => {
+        expect(error).toEqual(errorResponse);
+      });
+    });
+
+    it('rejects with the bare error upon another kind of error error', () => {
+      const error = new Error('foo');
       api.get.mockRejectedValue(error);
 
       const result = resource.all();
 
-      expect(result).rejects.toEqual(error);
+      return result.catch(e => {
+        expect(e).toEqual(error);
+      });
     });
   });
 
@@ -84,13 +97,15 @@ describe('Resource', () => {
       expect(api.get).toHaveBeenCalledWith('widgets/1?include=comments');
     });
 
-    it('rejects upon error', () => {
-      const error = { dummy: 'data' };
-      api.get.mockRejectedValue(error);
+    it('rejects with the response upon error', () => {
+      const errorResponse = { dummy: 'data' };
+      api.get.mockRejectedValue({ response: errorResponse });
 
       const result = resource.find({ id: 1 });
 
-      expect(result).rejects.toEqual(error);
+      return result.catch(error => {
+        expect(error).toEqual(errorResponse);
+      });
     });
   });
 
@@ -120,13 +135,15 @@ describe('Resource', () => {
       );
     });
 
-    it('rejects upon error', () => {
-      const error = { dummy: 'data' };
-      api.get.mockRejectedValue(error);
+    it('rejects with the response upon error', () => {
+      const errorResponse = { dummy: 'data' };
+      api.get.mockRejectedValue({ response: errorResponse });
 
       const result = resource.where({ filter });
 
-      expect(result).rejects.toEqual(error);
+      return result.catch(error => {
+        expect(error).toEqual(errorResponse);
+      });
     });
   });
 
@@ -166,13 +183,15 @@ describe('Resource', () => {
       expect(api.get).toHaveBeenCalledWith('users/1/widgets?include=comments');
     });
 
-    it('rejects upon error', () => {
-      const error = { dummy: 'data' };
-      api.get.mockRejectedValue(error);
+    it('rejects with the response upon error', () => {
+      const errorResponse = { dummy: 'data' };
+      api.get.mockRejectedValue({ response: errorResponse });
 
       const result = resource.related({ parent });
 
-      expect(result).rejects.toEqual(error);
+      return result.catch(error => {
+        expect(error).toEqual(errorResponse);
+      });
     });
   });
 
@@ -194,13 +213,15 @@ describe('Resource', () => {
       return expect(result).resolves.toEqual(responseBody);
     });
 
-    it('rejects upon error', () => {
-      const error = { dummy: 'data' };
-      api.post.mockRejectedValue(error);
+    it('rejects with the response upon error', () => {
+      const errorResponse = { dummy: 'data' };
+      api.post.mockRejectedValue({ response: errorResponse });
 
       const result = resource.create(record);
 
-      return expect(result).rejects.toEqual(error);
+      return result.catch(error => {
+        expect(error).toEqual(errorResponse);
+      });
     });
   });
 
@@ -215,31 +236,37 @@ describe('Resource', () => {
       return expect(result).resolves.toEqual(responseBody);
     });
 
-    it('rejects upon error', () => {
-      const error = { dummy: 'data' };
-      api.patch.mockRejectedValue(error);
+    it('rejects with the response upon error', () => {
+      const errorResponse = { dummy: 'data' };
+      api.patch.mockRejectedValue({ response: errorResponse });
 
       const result = resource.update(record);
 
-      return expect(result).rejects.toEqual(error);
+      return result.catch(error => {
+        expect(error).toEqual(errorResponse);
+      });
     });
   });
 
   describe('delete', () => {
     it('can delete a record', () => {
+      api.delete.mockResolvedValue();
+
       const result = resource.delete(record);
 
       expect(api.delete).toHaveBeenCalledWith('widgets/1');
       return result; // confirm it resolves
     });
 
-    it('rejects upon error', () => {
-      const error = { dummy: 'data' };
-      api.delete.mockRejectedValue(error);
+    it('rejects with the response upon error', () => {
+      const errorResponse = { dummy: 'data' };
+      api.delete.mockRejectedValue({ response: errorResponse });
 
       const result = resource.delete(record);
 
-      return expect(result).rejects.toEqual(error);
+      return result.catch(error => {
+        expect(error).toEqual(errorResponse);
+      });
     });
   });
 });
