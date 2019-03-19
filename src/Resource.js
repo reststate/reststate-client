@@ -12,7 +12,7 @@ const getOptionsQuery = (optionsObject = {}) =>
 const relatedResourceUrl = ({ parent, relationship }) =>
   `${parent.type}/${parent.id}/${relationship}`;
 
-const extractData = response => response.data;
+const extractData = response => Object.assign(response.data, response.included ? { included: response.included } : null);
 
 const extractErrorResponse = error => {
   if (error && error.response) {
