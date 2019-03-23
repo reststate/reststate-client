@@ -26,7 +26,10 @@ describe('Resource', () => {
 
   describe('all', () => {
     it('can retrieve all records', () => {
-      const expectedResult = { data: records };
+      const expectedResult = {
+        data: records,
+        included: { fake: 'included' },
+      };
       api.get.mockResolvedValue({ data: expectedResult });
 
       const result = resource.all();
