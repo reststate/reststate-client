@@ -156,6 +156,21 @@ describe('Resource', () => {
       id: '1',
     };
 
+    const parentWithRelationship = relationship => ({
+      ...parent,
+      relationships: {
+        [relationship]: {
+          data: {
+            type: 'type',
+            id: '2',
+          },
+          links: {
+            related: 'related-link',
+          },
+        },
+      },
+    });
+
     it('can find related records', () => {
       const expectedResponse = { data: records };
       api.get.mockResolvedValue({ data: expectedResponse });
@@ -175,6 +190,34 @@ describe('Resource', () => {
 
       expect(api.get).toHaveBeenCalledWith('users/1/purchased-widgets?');
       return expect(result).resolves.toEqual(expectedResponse);
+    });
+
+    it('can find related link with a parent has relationships', () => {
+      const expectedResponse = { data: records };
+      api.get.mockResolvedValue({ data: expectedResponse });
+
+      const relationship = 'purchased-widgets';
+      const parent = parentWithRelationship(relationship);
+      delete parent.relationships[relationship].links;
+
+      const result = resource.related({
+        parent,
+        relationship,
+      });
+
+      expect(api.get).toHaveBeenCalledWith('users/1/purchased-widgets?');
+      return expect(result).resolves.toEqual(expectedResponse);
+    });
+
+    it('can use builtUrl if parent has relationships without links', () => {
+      const expectedResponse = { data: records };
+      api.get.mockResolvedValue({ data: expectedResponse });
+
+      const relationship = 'purchased-widgets';
+      const result = resource.related({
+        parent: parentWithRelationship(relationship),
+        relationship,
+      });
     });
 
     it('can request included records', () => {
