@@ -9,8 +9,21 @@ const getOptionsQuery = (optionsObject = {}) =>
     .map(k => `${k}=${encodeURIComponent(optionsObject[k])}`)
     .join('&');
 
-const relatedResourceUrl = ({ parent, relationship }) =>
-  `${parent.type}/${parent.id}/${relationship}`;
+const relatedResourceUrl = ({ parent, relationship }) => {
+  const builtUrl = `${parent.type}/${parent.id}/${relationship}`;
+
+  if (
+    parent.relationships &&
+    Object.keys(parent.relationships).includes(relationship)
+  ) {
+    return (
+      (parent.relationships[relationship].links &&
+        parent.relationships[relationship].links.related) ||
+      builtUrl
+    );
+  }
+  return builtUrl;
+};
 
 const extractData = response => response.data;
 
