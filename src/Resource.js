@@ -6,6 +6,7 @@ function filterQueryString(obj) {
 
 const getOptionsQuery = (optionsObject = {}) =>
   Object.keys(optionsObject)
+    .filter(k => typeof optionsObject[k] !== 'undefined')
     .map(k => `${k}=${encodeURIComponent(optionsObject[k])}`)
     .join('&');
 
