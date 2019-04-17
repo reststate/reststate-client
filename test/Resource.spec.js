@@ -12,6 +12,7 @@ describe('Resource', () => {
   const records = [record];
   const optionsWithInclude = {
     include: 'comments',
+    sort: undefined,
   };
 
   beforeEach(() => {
