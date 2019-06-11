@@ -1,6 +1,13 @@
 module.exports = {
   title: '@reststate/client',
-  ga: 'UA-128167246-4',
+  plugins: [
+    [
+      '@vuepress/google-analytics',
+      {
+        ga: 'UA-128167246-4',
+      },
+    ],
+  ],
   themeConfig: {
     nav: [
       { text: '@reststate/client', link: '/' },
