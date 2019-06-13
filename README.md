@@ -16,7 +16,7 @@ A lightweight client for making requests to a JSON:API service.
 ## Synopsis
 
 ```javascript
-const resource = new Resource({
+const resource = new ResourceClient({
   name: 'widgets',
   httpClient: axios.create(...),
 });
@@ -41,7 +41,7 @@ $ npm install --save @reststate/client
 
 ```js
 import axios from 'axios';
-import { ResourceClient as Resource } from '@reststate/client';
+import { ResourceClient } from '@reststate/client';
 
 const token = ...;
 
@@ -52,14 +52,14 @@ const httpClient = axios.create({
     'Authentication': `Bearer ${token}`,
   },
 });
-const client = new Resource({ name: 'widgets', httpClient });
+const client = new ResourceClient({ name: 'widgets', httpClient });
 
 client.all().then(results => console.log(results));
 ```
 
 ## Usage
 
-For more information on usage, see the [`@reststate/mobx` docs](https://mobx.reststate.org).
+For more information on usage, see the [`@reststate/client` docs](https://client.reststate.org).
 
 ## License
 
