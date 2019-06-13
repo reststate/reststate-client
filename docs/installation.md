@@ -8,7 +8,7 @@ $ npm install --save @reststate/client
 
 ```js
 import axios from 'axios';
-import { Resource } from '@reststate/client';
+import { ResourceClient } from '@reststate/client';
 
 const token = ...;
 
@@ -19,7 +19,7 @@ const httpClient = axios.create({
     'Authentication': `Bearer ${token}`,
   },
 });
-const client = new Resource({ name: 'widgets', httpClient });
+const client = new ResourceClient({ name: 'widgets', httpClient });
 
 client.all().then(results => console.log(results));
 ```
