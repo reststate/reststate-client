@@ -21,7 +21,7 @@ const resource = new ResourceClient({
   httpClient: axios.create(...),
 });
 
-resource.loadAll()
+resource.all()
   .then(widgets => widgets);
 
 resource.create({
@@ -43,7 +43,7 @@ $ npm install --save @reststate/client
 import axios from 'axios';
 import { ResourceClient } from '@reststate/client';
 
-const token = ...;
+const token = "FILL_ME";
 
 const httpClient = axios.create({
   baseUrl: 'https://sandboxapi.codingitwrong.com',
