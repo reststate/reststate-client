@@ -41,7 +41,7 @@ $ npm install --save @reststate/client
 
 ```js
 import axios from 'axios';
-import { Resource } from '@reststate/client';
+import { ResourceClient as Resource } from '@reststate/client';
 
 const token = ...;
 
