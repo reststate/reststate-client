@@ -14,7 +14,7 @@ A lightweight client for making requests to a JSON:API service.
 ## Synopsis
 
 ```javascript
-const resource = new Resource({
+const resource = new ResourceClient({
   name: 'widgets',
   httpClient: axios.create(...),
 });
