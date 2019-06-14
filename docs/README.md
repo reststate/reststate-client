@@ -19,7 +19,7 @@ const resource = new ResourceClient({
   httpClient: axios.create(...),
 });
 
-resource.loadAll()
+resource.all()
   .then(widgets => widgets);
 
 resource.create({
