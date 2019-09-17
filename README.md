@@ -59,7 +59,7 @@ client.all().then(results => console.log(results));
 
 ## Usage
 
-For more information on usage, see the [`@reststate/client` docs](https://client.reststate.org).
+For more information on usage, see the [`@reststate/client` docs](https://client.reststate.codingitwrong.com).
 
 ## License
 

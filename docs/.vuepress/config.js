@@ -12,9 +12,9 @@ module.exports = {
     nav: [
       { text: '@reststate/client', link: '/' },
       { text: 'github', link: 'https://github.com/reststate/reststate-client' },
-      { text: '/vuex', link: 'https://vuex.reststate.org' },
-      { text: '/mobx', link: 'https://mobx.reststate.org' },
-      { text: 'home', link: 'https://reststate.org' },
+      { text: '/vuex', link: 'https://vuex.reststate.codingitwrong.com' },
+      { text: '/mobx', link: 'https://mobx.reststate.codingitwrong.com' },
+      { text: 'home', link: 'https://reststate.codingitwrong.com' },
     ],
     sidebar: ['/', 'installation', 'reading-data', 'writing-data'],
     displayAllHeaders: true,

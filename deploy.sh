@@ -10,7 +10,7 @@ yarn docs:build
 cd docs/.vuepress/dist
 
 # if you are deploying to a custom domain
-echo 'https://client.reststate.org' > CNAME
+echo 'https://client.reststate.codingitwrong.com' > CNAME
 
 git init
 git add -A
