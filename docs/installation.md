@@ -15,7 +15,7 @@ const token = ...;
 const httpClient = axios.create({
   baseURL: 'https://sandboxapi.codingitwrong.com',
   headers: {
-    'Content-Type': 'application/vnd+api.json',
+    'Content-Type': 'application/vnd.api+json',
     'Authentication': `Bearer ${token}`,
   },
 });
