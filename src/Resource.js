@@ -51,19 +51,13 @@ class Resource {
       url = `${this.name}?${getOptionsQuery(options)}`;
     }
 
-    return this.api
-      .get(url)
-      .then(extractData)
-      .catch(extractErrorResponse);
+    return this.api.get(url).then(extractData).catch(extractErrorResponse);
   }
 
   find({ id, options } = {}) {
     const url = `${this.name}/${id}?${getOptionsQuery(options)}`;
 
-    return this.api
-      .get(url)
-      .then(extractData)
-      .catch(extractErrorResponse);
+    return this.api.get(url).then(extractData).catch(extractErrorResponse);
   }
 
   where({ filter, options } = {}) {
@@ -77,10 +71,7 @@ class Resource {
   related({ parent, relationship = this.name, options }) {
     const baseUrl = relatedResourceUrl({ parent, relationship });
     const url = `${baseUrl}?${getOptionsQuery(options)}`;
-    return this.api
-      .get(url)
-      .then(extractData)
-      .catch(extractErrorResponse);
+    return this.api.get(url).then(extractData).catch(extractErrorResponse);
   }
 
   create(partialRecord) {
