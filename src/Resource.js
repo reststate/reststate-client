@@ -1,7 +1,11 @@
-function filterQueryString(obj) {
-  return Object.keys(obj)
-    .map(k => `filter[${k}]=${encodeURIComponent(obj[k])}`)
-    .join('&');
+function filterQueryString({ filter = {}, customFilter = {} }) {
+  const paramsFromFilter = Object.keys(filter).map(
+    k => `filter[${k}]=${encodeURIComponent(filter[k])}`,
+  );
+  const paramsFromCustomFilter = Object.keys(customFilter).map(
+    k => `filter${k}=${encodeURIComponent(customFilter[k])}`,
+  );
+  return [...paramsFromFilter, ...paramsFromCustomFilter].join('&');
 }
 
 const getOptionsQuery = (optionsObject = {}) =>
@@ -60,8 +64,8 @@ class Resource {
     return this.api.get(url).then(extractData).catch(extractErrorResponse);
   }
 
-  where({ filter, options } = {}) {
-    const queryString = filterQueryString(filter);
+  where({ filter, customFilter, options } = {}) {
+    const queryString = filterQueryString({ filter, customFilter });
     return this.api
       .get(`${this.name}?${queryString}&${getOptionsQuery(options)}`)
       .then(extractData)

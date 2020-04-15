@@ -128,6 +128,17 @@ describe('Resource', () => {
       return expect(result).resolves.toEqual(expectedResponse);
     });
 
+    it('can add custom query string parameters', () => {
+      api.get.mockResolvedValue();
+
+      const customFilter = {
+        '[foo][bar]': 'draft',
+      };
+      const result = resource.where({ customFilter });
+
+      expect(api.get).toHaveBeenCalledWith('widgets?filter[foo][bar]=draft&');
+    });
+
     it('can request included records', () => {
       const expectedResponse = { data: records };
       api.get.mockResolvedValue({ data: expectedResponse });
