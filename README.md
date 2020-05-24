@@ -46,7 +46,7 @@ import { ResourceClient } from '@reststate/client';
 const token = "FILL_ME";
 
 const httpClient = axios.create({
-  baseURL: 'https://sandboxapi.codingitwrong.com',
+  baseURL: 'https://sandbox.howtojsonapi.com',
   headers: {
     'Content-Type': 'application/vnd.api+json',
     'Authentication': `Bearer ${token}`,
