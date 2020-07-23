@@ -83,6 +83,42 @@ class Resource {
       .catch(extractErrorResponse);
   }
 
+  updateRelationships(parent, relationship, records) {
+    // https://jsonapi.org/format/#crud-updating-to-many-relationships
+    const requestData = { data: records };
+    return this.api
+      .patch(
+        `${parent.type}/${parent.id}/relationships/${relationship}`,
+        requestData,
+      )
+      .then(extractData)
+      .catch(extractErrorResponse);
+  }
+
+  createRelationships(parent, relationship, records) {
+    // https://jsonapi.org/format/#crud-updating-to-many-relationships
+    const requestData = { data: records };
+    return this.api
+      .post(
+        `${parent.type}/${parent.id}/relationships/${relationship}`,
+        requestData,
+      )
+      .then(extractData)
+      .catch(extractErrorResponse);
+  }
+
+  removeRelationships(parent, relationship, records) {
+    // https://jsonapi.org/format/#crud-updating-to-many-relationships
+    const requestData = { data: records };
+    return this.api
+      .delete(
+        `${parent.type}/${parent.id}/relationships/${relationship}`,
+        requestData,
+      )
+      .then(extractData)
+      .catch(extractErrorResponse);
+  }
+
   update(record) {
     // http://jsonapi.org/faq/#wheres-put
     const requestData = { data: record };
