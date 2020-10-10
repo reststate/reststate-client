@@ -13,7 +13,7 @@ import { ResourceClient } from '@reststate/client';
 const token = ...;
 
 const httpClient = axios.create({
-  baseURL: 'https://sandbox.howtojsonapi.com',
+  baseURL: 'https://jsonapi-sandbox.herokuapp.com',
   headers: {
     'Content-Type': 'application/vnd.api+json',
     'Authentication': `Bearer ${token}`,
