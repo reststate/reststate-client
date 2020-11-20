@@ -1,6 +1,6 @@
 # @reststate/client
 
-[![CircleCI](https://circleci.com/gh/reststate/reststate-client.svg?style=svg)](https://circleci.com/gh/reststate/reststate-client)
+**This package is no longer maintained.**
 
 A lightweight client for making requests to a JSON:API service.
 
