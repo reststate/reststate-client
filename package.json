@@ -30,7 +30,7 @@
     "kind-of": "^6.0.3",
     "prettier": "2.1.2",
     "serialize-javascript": "^5.0.1",
-    "set-value": "^3.0.2",
+    "set-value": "^4.0.1",
     "vuepress": "^1.0.1"
   }
 }
