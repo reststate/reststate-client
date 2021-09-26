@@ -1,6 +1,8 @@
 # @reststate/client
 
-**This package is no longer maintained.**
+**This package is no longer maintained.** The original maintainer has forked it to [`@codingitwrong/jsonapi-client`](https://github.com/CodingItWrong/jsonapi-client) and continues development there. It is forked to avoid breaking compatibility with packages that depend on `@reststate/client`, including other `@reststate` packages and forks of them.
+
+---
 
 A lightweight client for making requests to a JSON:API service.
 
